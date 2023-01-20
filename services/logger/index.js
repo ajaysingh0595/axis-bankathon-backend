@@ -1,13 +1,13 @@
-const winston = require("winston")
-const WinstonCloudWatch = require("winston-cloudwatch")
-const aws = require("../aws/aws")
-const appConfig = require("../../config/settings")
-const aws_cloude_watch = require("./aws_cloude_watch")
+const winston = require('winston')
+const WinstonCloudWatch = require('winston-cloudwatch')
+const aws = require('../aws/aws')
+const appConfig = require('../../config/settings')
+const aws_cloude_watch = require('./aws_cloude_watch')
 
 const transports = {
   errors: new winston.transports.File({
     filename: `${appConfig.app.logsDir}/errors.log`,
-    level: "error",
+    level: 'error',
   }),
   combined: new winston.transports.File({
     filename: `${appConfig.app.logsDir}/combined.log`,
@@ -30,17 +30,17 @@ const mailTransports = [transports.mail]
 
 const defaultMeta = { service: appConfig.domain, env: process.env.NODE_ENV }
 
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === 'production') {
   // loggerTransports.push(splunkTransport);
   // errorTransports.push(splunkTransport);
   // requestTransports.push(splunkTransport);
-} else if (process.env.NODE_ENV === "dev") {
+} else if (process.env.NODE_ENV === 'dev') {
   loggerTransports.push(transports.console)
   errorTransports.push(transports.console)
 }
 
 const logger = winston.createLogger({
-  level: "info",
+  level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()
@@ -50,7 +50,7 @@ const logger = winston.createLogger({
 })
 
 const reqlogger = winston.createLogger({
-  level: "info",
+  level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()
@@ -63,7 +63,7 @@ const cloudwatchlogs = winston.add(
     cloudWatchLogs: new aws.CloudWatchLogs(),
     awsRegion: appConfig.AWS.region,
     logGroupName: appConfig.AWS.logging.LOG_GROUP_NAME,
-    logStreamName: "api-request",
+    logStreamName: 'api-request',
     createLogGroup: false,
     createLogStream: false,
     submissionInterval: 1000,
@@ -75,11 +75,11 @@ const cloudwatchlogs = winston.add(
 let requestLogger = async (req, status_code, more_option = {}) => {
   try {
     let create_response_obj = aws_cloude_watch.api_logs(req, status_code)
-    if (req.path != "/api/v1/upload/file-upload") {
+    if (req.path != '/api/v1/upload/file-upload') {
       if (status_code == 200) {
-        cloudwatchlogs.info(create_response_obj)
+        // cloudwatchlogs.info(create_response_obj)
       } else {
-        cloudwatchlogs.error(create_response_obj)
+        // cloudwatchlogs.error(create_response_obj)
       }
     }
   } catch (e) {
@@ -88,7 +88,7 @@ let requestLogger = async (req, status_code, more_option = {}) => {
 }
 
 const mailLogger = winston.createLogger({
-  level: "info",
+  level: 'info',
   format: winston.format.combine(
     winston.format.timestamp(),
     winston.format.json()

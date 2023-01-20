@@ -1,17 +1,17 @@
-let jwt = require("jsonwebtoken")
-let settings = require("../config/settings")
-let models = require("../models")
-const logger = require("./logger").logger
-let crypto = require("crypto")
-let send = require("./sms")
-let Redis = require("./redis/client")
-let ERROR_CODE = require("../helper/constants/error_code")
-const Op = require("sequelize").Op
+let jwt = require('jsonwebtoken')
+let settings = require('../config/settings')
+let models = require('../models')
+const logger = require('./logger').logger
+let crypto = require('crypto')
+let send = require('./sms')
+let Redis = require('./redis/client')
+let ERROR_CODE = require('../helper/constants/error_code')
+const Op = require('sequelize').Op
 let auth = {
   login: async function (payload) {
     let RESPONSE = {
       is_error: false,
-      msg: "You are successfully logged in",
+      msg: 'You are successfully logged in',
       result: {},
     }
 
@@ -19,9 +19,6 @@ let auth = {
       let { username, password } = payload
       let where = {
         [Op.or]: [
-          {
-            username: username,
-          },
           {
             email: username,
           },
@@ -60,7 +57,7 @@ let auth = {
   refresh_token: async function (req) {
     let RESPONSE = {
       is_error: false,
-      msg: "",
+      msg: '',
       result: {},
     }
     try {
@@ -71,7 +68,7 @@ let auth = {
         where: q_where,
       })
       if (!query) {
-        throw Error("invalid user")
+        throw Error('invalid user')
       }
       let redis = new Redis(req.redis)
       if (redis.is_connected) {
@@ -120,7 +117,7 @@ let auth = {
       expiresIn: settings.JWT.JWT_TIMEOUT,
     })
   },
-  generate_webhook_token: async function (user_data, expiry = "") {
+  generate_webhook_token: async function (user_data, expiry = '') {
     let dte = user_data
     return jwt.sign(dte, settings.JWT.JWT_WEBHOOK_KEY, {
       expiresIn: expiry ? expiry : settings.JWT.WEBHOOK_TOKEN_EXPIRATION,
@@ -138,13 +135,13 @@ let auth = {
   genRandomString: function (length) {
     return crypto
       .randomBytes(Math.ceil(length / 2))
-      .toString("hex") /** convert to hexadecimal format */
+      .toString('hex') /** convert to hexadecimal format */
       .slice(0, length) /** return required number of characters */
   },
   sha512: function (password, salt) {
-    let hash = crypto.createHmac("sha512", salt) /** Hashing algorithm sha512 */
+    let hash = crypto.createHmac('sha512', salt) /** Hashing algorithm sha512 */
     hash.update(password)
-    let value = hash.digest("hex")
+    let value = hash.digest('hex')
     return {
       salt: salt,
       passwordHash: value,

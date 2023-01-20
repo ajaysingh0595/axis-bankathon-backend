@@ -1,13 +1,13 @@
 /* eslint-disable require-atomic-updates */
-var models = require("../../models")
+var models = require('../../models')
 
 module.exports = {
   paginate_model: async (req, model, query) => {
-    let limit = req.query.limit ? req.query.limit : 10
+    let limit = req?.query?.limit ? req?.query?.limit : 10
     let count_object = await model.findAndCountAll(query)
     let count = count_object.count
 
-    let page = req.query.page ? req.query.page : 1
+    let page = req?.query?.page ? req?.query?.page : 1
     let pages = Math.ceil(count / limit)
     let offset = limit * (page - 1)
 
@@ -18,9 +18,9 @@ module.exports = {
       count: parseInt(count),
     }
 
-    query["limit"] = limit
-    query["offset"] = offset
-    query["raw"] = true
+    query['limit'] = limit
+    query['offset'] = offset
+    query['raw'] = true
 
     RESPONSE.data = await model.findAll(query)
     return RESPONSE
@@ -33,18 +33,18 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.lastIndexOf("FROM")
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.lastIndexOf('FROM')
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
@@ -93,18 +93,18 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
@@ -151,24 +151,24 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
-    end_index = sql.indexOf("FROM", end_index + 1)
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
+    end_index = sql.indexOf('FROM', end_index + 1)
 
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
-    req.log("PAGINATE COUNT SQL", count_sql)
+    req.log('PAGINATE COUNT SQL', count_sql)
 
     let count_object = await models.sequelize
       .query(count_sql, {
@@ -213,25 +213,25 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
 
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
-    req.log("PAGINATE COUNT SQL", count_sql)
+    req.log('PAGINATE COUNT SQL', count_sql)
 
     let count_object = await models.sequelize
       .query(count_sql, {
@@ -276,26 +276,26 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
 
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
-    req.log("PAGINATE COUNT SQL", count_sql)
+    req.log('PAGINATE COUNT SQL', count_sql)
 
     let count_object = await models.sequelize
       .query(count_sql, {
@@ -340,27 +340,27 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
 
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
-    req.log("PAGINATE COUNT SQL", count_sql)
+    req.log('PAGINATE COUNT SQL', count_sql)
 
     let count_object = await models.sequelize
       .query(count_sql, {
@@ -405,27 +405,27 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
 
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
-    req.log("PAGINATE COUNT SQL", count_sql)
+    req.log('PAGINATE COUNT SQL', count_sql)
 
     let count_object = await models.sequelize
       .query(count_sql, {
@@ -470,28 +470,28 @@ module.exports = {
         : req.query.limit
       : 10
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
 
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
-    req.log("PAGINATE COUNT SQL", count_sql)
+    req.log('PAGINATE COUNT SQL', count_sql)
 
     let count_object = await models.sequelize
       .query(count_sql, {
@@ -536,30 +536,30 @@ module.exports = {
         : 100
       : 100
 
-    let start_index = sql.indexOf("SELECT")
-    let end_index = sql.indexOf("FROM")
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
-    end_index = sql.indexOf("FROM", end_index + 1)
+    let start_index = sql.indexOf('SELECT')
+    let end_index = sql.indexOf('FROM')
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
+    end_index = sql.indexOf('FROM', end_index + 1)
 
     let count_sql = sql.replace(
       sql.substring(start_index + 6, end_index),
-      " count(*) as count "
+      ' count(*) as count '
     )
 
     // remove order by clause if any
-    if (count_sql.toLowerCase().indexOf("order by") !== -1) {
+    if (count_sql.toLowerCase().indexOf('order by') !== -1) {
       count_sql = count_sql.substr(
         0,
-        count_sql.toLowerCase().indexOf("order by")
+        count_sql.toLowerCase().indexOf('order by')
       ) // remove order by clause
     }
 
-    req.log("PAGINATE COUNT SQL", count_sql)
+    req.log('PAGINATE COUNT SQL', count_sql)
 
     let count_object = await models.sequelize
       .query(count_sql, {

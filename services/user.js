@@ -1,11 +1,11 @@
-const logger = require("../services/logger").logger
-let models = require("../models")
-let ERROR_CODE = require("../helper/constants/error_code")
+const logger = require('../services/logger').logger
+let models = require('../models')
+let ERROR_CODE = require('../helper/constants/error_code')
 let service = {
   create_account: async function (payload) {
     let RESPONSE = {
       is_error: false,
-      msg: "Ok",
+      msg: 'Ok',
       result: {},
     }
     try {
@@ -21,20 +21,10 @@ let service = {
     return RESPONSE
   },
   validate_account: async function (RESPONSE, payload) {
-    let { username, email, mobile } = payload
-    let username_exits = await models.user.findOne({
-      attributes: ["id"],
-      where: {
-        username,
-      },
-      raw: true,
-    })
-    if (username_exits) {
-      RESPONSE.result = ERROR_CODE.DATA_EXITS.USERNAME
-      throw new Error(ERROR_CODE.DATA_EXITS.USERNAME.msg)
-    }
+    let { email, mobile } = payload
+
     let email_exits = await models.user.findOne({
-      attributes: ["id"],
+      attributes: ['id'],
       where: {
         email,
       },
@@ -45,7 +35,7 @@ let service = {
       throw new Error(ERROR_CODE.DATA_EXITS.EMAIL.msg)
     }
     let mobile_exits = await models.user.findOne({
-      attributes: ["id"],
+      attributes: ['id'],
       where: {
         mobile,
       },
@@ -60,12 +50,12 @@ let service = {
   user_profile: async function (user_id) {
     let RESPONSE = {
       is_error: false,
-      msg: "Ok",
+      msg: 'Ok',
       result: {},
     }
     try {
       let find_user = await models.user.findOne({
-        attributes: ["id", "full_name", "mobile", "email", "status"],
+        attributes: ['id', 'full_name', 'mobile', 'email', 'status'],
         where: { id: user_id, is_deleted: false },
         raw: true,
       })
