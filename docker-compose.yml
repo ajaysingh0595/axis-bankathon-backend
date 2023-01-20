@@ -1,0 +1,10 @@
+version: "2"
+services:
+  api:
+    build: .
+    command: npm run dev
+    volumes:
+      - .:/usr/src/flaplive/
+      - /usr/src/flaplive/node_modules
+    ports:
+      - "3000:3000"

@@ -1,0 +1,40 @@
+let msg = {
+  AUTH: {
+    OTP_FAILED: "OTP Sending Failed",
+    INVALID_OTP: "OTP is Invalid",
+    OTP_SENT: "OTP Sent Successfully",
+  },
+  USER: {
+    PROFILE_UPDATED_SUCCESS_FULLY: "Profile Updated Successfully",
+    REFERRAL_ADDED_FULLY: "Referral Code Added Successfully",
+    INVALID_REFERRAL_CODE: "Please enter a valid referral code",
+    LOGGED_OUT: "User Logged out Successfully",
+    OTP_SENT: "OTP Sent Successfully",
+    INVALID_MOBILE: "Invalid Mobile Number",
+    ENTER_MOBILE: "Please specify Mobile Number",
+    ZONE_SERVICABLE: "Zone is serviceable",
+    ZONE_NOT_SERVICABLE: "Zone is not serviceable",
+    ADDRESS_MAXIMUM_ALLOCATED: "Maximum Address already allocated",
+    ROUTER_ERRORS: {
+      ENTER_VALID_MOBILE: "Please enter a valid 10 digit mobile number",
+      ENTER_VALID_EMAIL: "Please enter a valid email ID",
+      ENTER_VALID_OTP: "Please enter valid 4 digit OTP",
+      ENTER_VALID_FIRST_NAME: "Please enter valid first name",
+      ENTER_VALID_LAST_NAME: "Please enter valid last name",
+      ENTER_VALID_LATITUDE: "Enter a valid Latitude",
+      ENTER_VALID_LONGITUDE: "Enter a valid Longitude",
+      ENTER_VALID_ADDRESS_LINE1: "Enter Valid address line",
+      ENTER_VALID_ADDRESS_LINE2: "Enter valid address line",
+      ENTER_VALID_LANDMARK: "Enter valid landmarks",
+      ENTER_VALID_INSTRUCTIONS_TO_REACH: "Enter valid Instructions",
+      ENTER_VALID_GOOGLE_MAPS_ADDRESS: "Enter valid Google Maps address",
+      ENTER_VALID_ADDRESS_ID: "Enter valid address ID",
+      INVALID_PACKAGE_DIMENSIONS: "",
+      INVALID_VALUE_OF_ITEM: "",
+      INVALID_PACKAGE_CATEGORY: "",
+      UPLOAD_VALID_PACKAGE_IMAGE: "",
+    },
+  },
+}
+
+module.exports = msg
